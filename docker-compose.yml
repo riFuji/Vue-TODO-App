@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nginx:
+    build: ./nginx
+    image: nginx
+    container_name: nginx
+    ports:
+      - '80:80'
+    volumes:
+      - ./nginx/conf.d/default.conf:/etc/nginx/nginx.conf
+      - ./vue/vueapp/dist:/var/www
+
+  vue:
+    build: ./vue
+    image: vue
+    container_name: vue
+    volumes:
+      - ./vue/vueapp:/app
+    ports:
+      - '8080:8080'
+    tty: true
+    # command: sh -c "cd vueapp && npm run serve"
